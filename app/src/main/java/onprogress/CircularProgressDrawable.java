@@ -50,7 +50,6 @@ public class CircularProgressDrawable extends Drawable implements Animatable {
     }
 
 
-
     @Override
     public void draw(Canvas canvas) {
         float startAngle = mCurrentGlobalAngle - mCurrentGlobalAngleOffset;
@@ -93,6 +92,11 @@ public class CircularProgressDrawable extends Drawable implements Animatable {
         fBounds.right = bounds.right - mBorderWidth / 2f - .5f;
         fBounds.top = bounds.top + mBorderWidth / 2f + .5f;
         fBounds.bottom = bounds.bottom - mBorderWidth / 2f - .5f;
+    }
+
+    @Override
+    protected boolean onStateChange(int[] state) {
+        return super.onStateChange(state);
     }
 
     //////////////////////////////////////////////////////////////////////////////

@@ -15,7 +15,6 @@ import com.example.akosha.sample1.materialcustomprogressbar.R;
  * Created by kushagarlall on 29/02/16.
  */
 public class CustomProgressDialog {
-    //// TODO: 29/02/16 implement and fix custom progress bar here
     private final View mView;
     private Context mContext;
     private final ViewGroup mParent;
@@ -24,11 +23,10 @@ public class CustomProgressDialog {
     public CustomProgressDialog(Context context, ViewGroup viewGroup){
         this.mContext = context;
         this.mParent = viewGroup;
-
         LayoutInflater inflater = LayoutInflater.from(this.mContext);
         this.mView = inflater.inflate(R.layout.progress_layout, this.mParent, false);
         progressBar =(CustomProgressBar) mView.findViewById(R.id.progress_bar);
-
+        progressBar.mParent = viewGroup;
     }
 
     public static CustomProgressDialog createDialog(Context context , View view){
@@ -40,9 +38,14 @@ public class CustomProgressDialog {
      * show on Progress
      */
     public void showProgress(){
-        progressBar.show();
+        showView();
     }
 
+    final void showView() {
+        if (this.mView.getParent() == null) {
+            this.mParent.addView(this.mView);
+        }
+    }
     /**
      * hide on Progress
      */
