@@ -55,7 +55,6 @@ public class CustomProgressBar extends ProgressBar {
     }
 
     public void show() {
-
         if(this.getParent()==null){
             this.mParent.addView(this);
         }

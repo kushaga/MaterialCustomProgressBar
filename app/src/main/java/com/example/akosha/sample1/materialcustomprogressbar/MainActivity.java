@@ -5,15 +5,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-import onprogress.CustomProgressBar;
+import onprogress.CustomProgressDialog;
 
 public class MainActivity extends AppCompatActivity {
 
-    private  CustomProgressBar customProgressBar;
+    private CustomProgressDialog customProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +58,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private  void showProgress() {
-        if(customProgressBar==null || !customProgressBar.isShown()){
-            customProgressBar = CustomProgressBar.create(this,findViewById(android.R.id.content));
-            customProgressBar.show();
+        if(customProgressBar==null || customProgressBar.progressBar == null || !customProgressBar.progressBar.isShown()){
+            customProgressBar = CustomProgressDialog.createDialog(this,findViewById(android.R.id.content));
+            customProgressBar.showProgress();
         }
     }
 
     private void hideProgress() {
-        if(customProgressBar.isShown()){
-            customProgressBar.dismiss();
+        if(customProgressBar.progressBar.isShown()){
+            customProgressBar.hideProgress();
         }
     }
 
