@@ -20,25 +20,33 @@ public class CustomProgressDialog {
     private final ViewGroup mParent;
     public final CustomProgressBar progressBar;
 
-    public CustomProgressDialog(Context context, ViewGroup viewGroup){
+    public CustomProgressDialog(Context context, ViewGroup viewGroup) {
         this.mContext = context;
         this.mParent = viewGroup;
         LayoutInflater inflater = LayoutInflater.from(this.mContext);
         this.mView = inflater.inflate(R.layout.progress_layout, this.mParent, false);
-        progressBar =(CustomProgressBar) mView.findViewById(R.id.progress_bar);
+        progressBar = (CustomProgressBar) mView.findViewById(R.id.progress_bar);
         progressBar.mParent = viewGroup;
     }
 
-    public static CustomProgressDialog createDialog(Context context , View view){
-        CustomProgressDialog customProgressDialog = new CustomProgressDialog(context,findSuitableParent(view));
+    public static CustomProgressDialog createDialog(View view) {
+        CustomProgressDialog customProgressDialog = new CustomProgressDialog(view.getContext(), findSuitableParent(view));
         return customProgressDialog;
     }
 
     /**
      * show on Progress
      */
-    public void showProgress(){
+    public void showProgress() {
         showView();
+    }
+
+    public boolean isShown() {
+        if (progressBar != null) {
+            return progressBar.isShown();
+        } else {
+            return false;
+        }
     }
 
     final void showView() {
@@ -46,10 +54,11 @@ public class CustomProgressDialog {
             this.mParent.addView(this.mView);
         }
     }
+
     /**
      * hide on Progress
      */
-    public void hideProgress(){
+    public void hideProgress() {
         progressBar.dismiss();
     }
 

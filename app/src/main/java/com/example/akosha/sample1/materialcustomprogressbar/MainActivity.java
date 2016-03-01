@@ -9,12 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import onprogress.CustomProgressBar;
 import onprogress.CustomProgressDialog;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CustomProgressBar customProgressBar;
+    CustomProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +28,24 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
             }
         });
 
-        CustomProgressDialog dialog = CustomProgressDialog.createDialog(this, findViewById(android.R.id.content));
-        dialog.showProgress();
+
+        Runnable thread = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    hideProgress();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        };
+        thread.run();
+        showProgress();
     }
 
     @Override
@@ -59,4 +70,16 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void showProgress() {
+        if (dialog == null || !dialog.isShown()) {
+            dialog = CustomProgressDialog.createDialog(findViewById(android.R.id.content));
+            dialog.showProgress();
+        }
+    }
+
+    private void hideProgress() {
+        if (dialog != null && dialog.isShown()) {
+            dialog.hideProgress();
+        }
+    }
 }
